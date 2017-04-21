@@ -1,0 +1,296 @@
+\documentclass[
+%% alle weiteren Papierformat einstellbar:
+a4paper, %apaper,
+%% keine Seitenzahlen:
+%empty,
+%% Schriftgröße (12pt, 11pt (Standard)):
+11pt,
+%% kleinere Überschriften:
+smallheadings,
+]
+{scrartcl}
+
+% _das_ Mathepaket schlechthin:
+\usepackage[
+  %% Nummerierung von Gleichungen links:
+  leqno,
+  %% Ausgabe von Gleichungen linksbündig:
+  fleqn,
+]{mathtools}
+% und dazu noch ein paar Mathesymbole und so:
+% (muss vor mathspec geladen werden)
+\usepackage{amsmath, amssymb}
+
+\usepackage[]{parskip}
+
+% Um auch schöne Schriftarten auswählen zu können:
+\usepackage[MnSymbol]{mathspec}
+
+% Wir wollen, dass alle unsere Schriften für TeX und einander angepasst sind:
+\defaultfontfeatures{Mapping=tex-text, Scale=MatchLowercase}
+% Die Hauptschriftart:
+\setmainfont[Numbers=OldStyle]{Minion Pro}
+% Die Matheschriftart:
+\setmathsfont(Digits,Latin,Greek)[
+  Numbers={Lining, Proportional}
+]{Minion Pro}
+% Die Schriftart für serifenlose Texte (z.B. Überschriften):
+\setallsansfonts[]{Myriad Pro}
+% Und die Schriftart für nichtproportionale Texte:
+\setallmonofonts[]{Fira Mono}
+
+% Deutsche Sprache bei Silbentrennung und Datum:
+\usepackage[ngerman]{babel}
+
+% St. Mary Road, liefert Symbole für theoretische Informatik (z.B. \lightning):
+\usepackage{stmaryrd}
+
+% nutze die volle Seite als Satzspiegel:
+\usepackage[
+  % Randbreite sei 1cm (sonst ist sie 1in):
+  cm,
+  % Kopf- und Fußzeile werden miteinbezogen:
+  headings
+]{fullpage}
+% verbesserte Tabellen
+% bietet u.a. die Spaltenmöglichkeit 'm{width}' = zentrierte Spalte mit fester
+% Breite
+\usepackage{array}
+% kann komplexe Linien in Tabellen ziehen:
+%\usepackage{hhline}
+% mehrseitige Tabellen:
+%\usepackage{longtable}
+% Tabellen mit gedehnten Spalten:
+%\usepackage{tabularx}
+% Pimpt enumerate auf (optionales Argument liefert Nummerierung):
+\usepackage{enumerate}
+% Kann descriptions auf die selbe Höhe bringen:
+%\usepackage{enumitem}
+% Liefert Hyperlinks (\hyperref, \url, \href}
+\usepackage{hyperref}
+% Farben (wie bei TikZ):
+%\usepackage{xcolor}
+% Ändert den Zeilenabstand:
+\usepackage[
+  % nur eine Möglichkeit auswählen:
+  singlespacing
+  %onehalfspacing
+  %doublespacing
+]{setspace}
+% Schönere Tabellen
+% dazu gibt's neue Kommandos:
+% - \toprule[(Dicke)], \midrule[(Dicke)], \bottomrule[(Dicke)]
+% - \addlinespace: Extrahöhe zwischen Zeilen
+\usepackage{booktabs}
+% Schöne numerische Zitierungen:
+%\usepackage{cite}
+% Verbessert den Satz von Abbildungsüberschriften:
+%\usepackage{caption}
+% Ermöglicht durch \begin{linenumbers} Zeilennummern anzuzeigen:
+%\usepackage{lineno}
+% Ermöglicht Zugriff auf die letzte Seite (z.B. \pageref{LastPage}):
+\usepackage{lastpage}
+% Quelltext schön setzen:
+\usepackage{listings}
+\lstset{%
+  language=Haskell,
+  basicstyle=\ttfamily,
+}
+% Logische Beweise:
+%\usepackage{bussproofs}
+% Unterstreichungen (\uline, \uuline, \sout: durchgestrichen, \uwave):
+%\usepackage{ulem}
+% Kann alle möglichen Maße ändern
+% will man Querformat, dann:
+%\usepackage[landscape]{geometry}
+% bietet gestrichelte vert. Linien in Tabellen (':')
+%\usepackage{arydshln}
+% Quelltext schön setzen:
+% (verlangt "xelatex -shell-escape"!)
+%\usepackage{minted}
+% um Bilder einzubinden:
+%\usepackage{graphicx}
+% um in Tabellen eine Zelle über mehrere Zeilen laufen zu lassen:
+\usepackage{multirow}
+
+% Coole Zeichnungen:
+\usepackage{tikz}
+%\tikzstyle{vertex}=[draw, circle, minimum size=20pt]
+%\tikzstyle{edge}=[draw, -]
+\usetikzlibrary{%
+  %backgrounds,
+  %mindmap,
+  %shapes.geometric,
+  %shapes.symbols,
+  %shapes.misc,
+  %shapes.multipart,
+  positioning,
+  %fit,
+  %calc,
+  %arrows,
+  automata,
+  %trees,
+  %decorations.pathreplacing,
+}
+
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+\renewcommand{\algorithmicrequire}{\textbf{Eingabe:}}
+
+% eigens gebaute Lochmarken:
+%\usepackage{eso-pic}
+%\AddToShipoutPicture*{
+  %\put(\LenToUnit{0mm},\LenToUnit{228.5mm})
+    %{\rule{\LenToUnit{20pt}}{\LenToUnit{0.5pt}}}
+  %\put(\LenToUnit{0mm},\LenToUnit{68.5mm})
+    %{\rule{\LenToUnit{20pt}}{\LenToUnit{0.5pt}}}
+%}
+
+% coole Kopf- und Fußzeilen:
+\usepackage{fancyhdr}
+% Seitenstil ist natürlich fancy:
+\pagestyle{fancy}
+% alle Felder löschen:
+\fancyhf{}
+% Veranstaltung:
+\fancyhead[L]{Künstliche Intelligenz}
+% Seriennummer:
+\fancyhead[C]{Übungsblatt 1}
+% Name und Matrikelnummer:
+\fancyhead[R]{Martin Darmüntzel (7251955)}
+%\fancyfoot[L]{}
+%\fancyfoot[C]{\thepage}
+\fancyfoot[C]{\thepage\,/\,\pageref{LastPage}}
+% Linie oben/unten:
+\renewcommand{\headrulewidth}{0.0pt}
+\renewcommand{\footrulewidth}{0.0pt}
+
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\max}{\text{max}}
+
+\title{Künstliche Intelligenz}
+\subtitle{Zusammenfassung}
+
+
+\begin{document}
+
+\maketitle
+
+\section{Intelligente Agenten}
+\label{sec:intelligente_agenten}
+
+\begin{description}
+  \item[Agent] alles, was die Umwelt durch \textbf{Sensoren} wahrnimmt und diese
+    Umwelt durch \textbf{Aktuatoren} (\textit{actuators}) beeinflusst
+  \item[Wahrnehmung] (\textit{percept}) wahrgenommene Eingaben des Agenten zu
+    jedem beliebigen Zeitpunkt
+  \item[Wahrnehmungsfolge] vollständiger Verlauf dessen, was der Agent
+    wahrgenommen hat
+  \item[Agentenfunktion] eine Funktion, die jede beliebige Wahrnehmungsfolge auf
+    eine Aktion abbildet; eine abstrakte mathematische Beschreibung
+  \item[Agentenprogramm] konkrete Implementation in einem physischen System
+  \item[rationaler Agent] ein Agent, der immer das \textit{Richtige} tut
+
+    Was bedeutet das genau? Das \textit{Richtige} hängt von den Konsequenzen des
+    Agentenverhaltens ab.
+
+  \item[Leistungsmaß] wertet jede gegebene Sequenz von Umgebungszuständen aus
+
+  \item[Definition: rationaler Agent] Für jede mögliche Wahrnehmungsfolge sollte
+    ein rationaler Agent die Aktion durchführen, die das erwartete Leistungsmaß
+    maximiert, wenn man seine Wahrnehmungsfolge sowie vorhandenes Wissen, über
+    das er verfügt, in Betracht zieht.
+\end{description}
+
+\subsection{Agentenprogramme}
+\label{sub:agentenprogramme}
+
+\begin{description}
+  \item[table-driven-agent] hat eine Tabelle, welche die Wahrnehmungen auf die
+    Aktionen abbildet
+
+    \begin{algorithm}
+      \caption{$\textsc{Table-Driven-Agent}(\textit{percept})$ \textbf{returns} an action}
+      \begin{algorithmic}
+        \STATE{}
+          \begin{tabular}{ll}
+            \textbf{persistent:}
+              & \textit{percepts}, a sequence, initially empty\\
+              & \textit{table}, a table of actions, indexed by percept
+              sequences, initially fully specified
+          \end{tabular}
+        \STATE{}
+        \STATE{} append \textit{percept} to the end of \textit{percepts}
+        \STATE{} \textit{action} $\gets \textsc{Lookup}(\textit{percepts}, \textit{table})$
+        \RETURN{} \textit{action}
+      \end{algorithmic}
+    \end{algorithm}
+
+    Das eignet sich nur für kleine Probleme, da die Tabelle sonst viel zu groß
+    wird.
+
+  \item[simple-reflex-agent] wählt die Aktion anhand der letzten Wahrnehmung aus
+    und ignoriert den Rest der Wahrnehmungsfolge
+
+    \begin{algorithm}
+      \caption{$\textsc{Simple-Reflex-Agent}(\textit{percept})$ \textbf{returns} an action}
+      \begin{algorithmic}
+        \STATE{}
+          \begin{tabular}{ll}
+            \textbf{persistent:}
+              & \textit{rules}, a set of condition-action rules
+          \end{tabular}
+        \STATE{}
+        \STATE{} \textit{state} $\gets \textsc{Interpret-Input}(\textit{percept})$
+        \STATE{} \textit{rule} $\gets \textsc{Rule-Match}(\textit{state, rules})$
+        \STATE{} \textit{action} $\gets \textit{rule}.\textsc{Action}$
+        \RETURN{} \textit{action}
+      \end{algorithmic}
+    \end{algorithm}
+
+  \item[model-based reflex agents] haben ein \textbf{Modell} der Welt und einen
+    aktuellen \textbf{internen Zustand}; verhalten sich sonst aber wie ein
+    simple-reflex-agent
+
+    \begin{algorithm}
+      \caption{$\textsc{Model-Based-Reflex-Agent}(\textit{percept})$ \textbf{returns} an action}
+      \begin{algorithmic}
+        \STATE{}
+          \begin{tabular}{ll}
+            \textbf{persistent:}
+              & \textit{state}, the agent's current conception of the world
+                state\\
+              & \textit{model}, a description of how the next state depends on
+                current state and action\\
+              & \textit{rules}, a set of condition-action rules\\
+              & \textit{action}, the most recent action, initially none
+          \end{tabular}
+        \STATE{}
+        \STATE{} \textit{state} $\gets \textsc{Update-State}(\textit{state}, \textit{action}, \textit{percept}, \textit{model})$
+        \STATE{} \textit{rule} $\gets \textsc{Rule-Match}(\textit{state, rules})$
+        \STATE{} \textit{action} $\gets \textit{rule}.\textsc{Action}$
+        \RETURN{} \textit{action}
+      \end{algorithmic}
+    \end{algorithm}
+
+  \item[goal-based agents] haben zusätzlich zum Modell und Zustand noch ein zu
+    erreichendes \textbf{Ziel}; braucht die Fähigkeiten \textbf{Suchen} und
+    \textbf{Planen} um das Ziel zu erreichen
+
+  \item[utility-based agents] haben statt eines Ziels eine Nutzwertfunktion
+    (\textbf{Utility}); versucht den erwarteten Nutzen zu maximieren
+
+  \item[learning agents] besteht aus vier Komponenten:
+    \begin{description}
+      \item[learning element] welches für Verbesserungen zuständig ist
+      \item[performance element] welches Aktionen auswählt
+      \item[critic] gibt Feedback an das learning element bzgl.\ wie gut sich
+        der Agent anstellt und legt fest, wie das performance element verändert
+        werden soll, sodass es in Zukunft bessere Aktionen auswählt
+      \item[problem generator] schlägt Aktionen vor, welche zu neuen und
+        informativen Erfahrungen führen
+    \end{description}
+\end{description}
+
+\end{document}

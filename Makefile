@@ -8,3 +8,9 @@ loesung01.pdf-live: loesung01.latex
 
 loesung01.pdf: loesung01.latex
 	latexmk -pdf -xelatex -use-make $<
+
+zusammenfassung.pdf-live: zusammenfassung.latex
+	latexmk -pdf -pvc -xelatex -use-make $<
+
+zusammenfassung.pdf: zusammenfassung.latex
+	latexmk -pdf -xelatex -use-make $<
