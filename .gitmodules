@@ -1,0 +1,3 @@
+[submodule "artificial-friends"]
+	path = artificial-friends
+	url = git@github.com:samuelantonioli/artificial-friends.git
