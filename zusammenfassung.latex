@@ -267,7 +267,8 @@ smallheadings,
               & \textit{action}, the most recent action, initially none
           \end{tabular}
         \STATE{}
-        \STATE{} \textit{state} $\gets \textsc{Update-State}(\textit{state}, \textit{action}, \textit{percept}, \textit{model})$
+        \STATE{} \textit{state} $\gets \textsc{Update-State}(\textit{state},
+        \textit{action}, \textit{percept}, \textit{model})$
         \STATE{} \textit{rule} $\gets \textsc{Rule-Match}(\textit{state, rules})$
         \STATE{} \textit{action} $\gets \textit{rule}.\textsc{Action}$
         \RETURN{} \textit{action}
@@ -293,14 +294,145 @@ smallheadings,
     \end{description}
 \end{description}
 
+\subsection{Eigenschaften der Umwelt}
+\label{sub:eigenschaften_der_umwelt}
+
+\begin{description}
+  \item[Observability] fully, partial, unobservable
+  \item[Agents] single, multi
+  \item[Determinismus] deterministisch, nicht-deterministisch
+  \item[Einteilung der Zeit] episodisch, sequentiell
+  \item[Veränderung der Umwelt von sich aus] statisch, dynamisch, semi-dynamisch
+  \item[Zustandsraum] diskret, kontinuierlich
+  \item[Vorwissen] known, unknown
+\end{description}
+
+
 \section{Problemlösen durch Suchen}
 \label{sec:problemlosen_durch_suchen}
+
+\subsection{Suchstrategien}
+\label{sub:suchstrategien}
+
+\begin{center}
+  \begin{tabular}{ll}
+    \toprule
+    uninformierte Suchstrategien & informierte Suchstrategien\\
+    \midrule
+    Breitensuche (Complete, Optimal), FIFO
+    & Greedy $f(n) = h(n)$\\
+    Dijkstra (C, O), PQ & A$^*$ $f(n) = g(n) + h(n)$\\
+    Tiefensuche LIFO\\
+    Depth-Limit\\
+    Iterative Tiefensuche (C, O)\\
+    Bidirektional (C, O)\\
+    \bottomrule
+  \end{tabular}
+\end{center}
+
+\subsection{Anforderungen an eine Heuristik}
+\label{sub:anforderungen_an_eine_heuristik}
+
+\begin{description}
+  \item[zulässig (admissable)] die wahren Kosten werden niemals überschätzt
+  \item[konstistent] erfüllt Dreiecksungleichung
+  \item[dominant] $h_2(n) \geq h_1(n)$
+\end{description}
+
+\subsection{Heuristikkonstruktionen}
+\label{sub:heuristikkonstruktionen}
+
+\begin{itemize}
+  \item Manhattan
+  \item Fehleranzahl
+  \item Relaxed Problems
+\end{itemize}
 
 \subsection{Lokale Suche}
 \label{sub:lokale_suche}
 
 \section{Constraint Satisfaction Problems}
 \label{sec:constraint_satisfaction_problems}
+
+\begin{description}
+  \item[CSP] Ein Constraint Satisfaction Problem besteht aus
+    \begin{itemize}
+      \item einer Menge von Variablen $X = \{ X_1, \ldots, X_n \}$,
+      \item einer Menge von Domänen $D = \{D_1, \ldots, D_n\}$, für jede
+        Variable eine,
+      \item einer Menge $C$ von Bedingungen, die erlaubte Kombinationen von
+        Werten angibt.
+    \end{itemize}
+\end{description}
+
+Jeder Zustand eines CSP ist eine Zuweisung von Werten zu den Variablen
+$\{X_i = v_i, X_j = v_j, \ldots \}$.
+Eine Zuweisung ist konsistent, wenn sie den Bedingungen genügt.
+Bei einer vollständigen Zuweisung wird jede Variable mit einem Wert belegt.
+Also ist eine Lösung eines CSPs eine konsistente und vollständige Zuweisung.
+Bei einer partiellen Zuweisung werden nur manche der Variablen mit Werten
+belegt.
+
+\begin{description}
+  \item[unäre Bedingung] Eine Bedingung, die nur eine Variable einschränkt.
+    Zum Beispiel: $\langle (SA), SA \neq \textit{green}\rangle$
+  \item[binäre Bedingung] Eine Bedingung, die zwei Variablen einschränkt.
+  \item[globale Bedingung] Eine Bedingung, die beliebig viele Variablen
+    einschränkt. Zum Beispiel \textit{AllDiff} bei Sudoku.
+\end{description}
+
+Um ein CSP zu lösen können wir Suchen (eine Zuweisung generieren und testen)
+oder spezielle Form der Schlussfolgerung namens \textit{constraint propagation}
+(Bedingungsweitergabe) nutzen. Dabei nutzen wir die Bedingungen, um die Domänen
+der einzelnen Variablen zu reduzieren, welche wiederum die Domänen von anderen
+Variablen reduzieren usw.
+
+\begin{description}
+  \item[lokale Konsistenz] Wir behandeln jede Variable als einen Knoten in einem
+    Graphen und jede binäre Bedingung als Kante. Wenn wir die Bedingungen für
+    jeden Teil des Graphen durchsetzen, dann werden die inkonsistenten Werte
+    fortlaufend eliminiert.
+  \item[Knoten-konsistent] alle Werte der Variable genügen den unären
+    Bedingungen
+  \item[Kanten-konsistent] eine Variable $X_i$ ist zu einer anderen Variable
+    $X_j$ Kanten-konsistent, wenn es für jeden Wert der Domäne $D_i$ einen Wert
+    in der Domäne $D_j$ gibt, welcher der binären Bedingung $(X_i, X_j)$ genügt
+  \item[Pfad-konsistent]
+  \item[$k$-konsistent]
+\end{description}
+
+CSPs sind kommutativ. Die Reihenfolge, wie man Variablen mit Werten belegt, ist
+egal.
+
+\begin{description}
+  \item[Backtracking] Tiefensuche, die Variablen mit Werten belegt und
+    zurückspringt\footnote{zurückverfolgt wäre die richtige Übersetzung für
+    \textit{to backtrack}}, wenn einer Variablen kein gültiger Wert mehr
+    zugewiesen werden kann
+\end{description}
+
+Zur Verbesserung der eigentlich schlechten Laufzeit stellen wir uns folgende
+Fragen:
+\begin{enumerate}
+  \item Welche Variable belegen wir als nächstes? Mit welchem Wert belegen wir
+    sie als erstes?
+    \begin{description}
+      \item[minimum-remaining-values]
+      \item[degree heuristic]
+      \item[least-constraining-value]
+    \end{description}
+  \item Welche Inferenzen lassen wir bei jedem Schritt laufen?
+    \begin{description}
+      \item[forward checking] mittels Kanten-konsistenz
+    \end{description}
+  \item Wenn die Suche bei einer ungültigen Zuweisung ankommt, können wir dann
+    diesen Fehler in Zukunft vermeiden?
+    \begin{description}
+      \item[backjumping] oder so, nicht soo wichtig
+    \end{description}
+\end{enumerate}
+
+Lokale Suche für CSPs: min-conflicts als Heuristik
 
 \section{Logische Agenten}
 \label{sec:logische_agenten}
@@ -310,6 +442,13 @@ smallheadings,
 
 \section{Handeln bei Unsicherheit}
 \label{sec:handeln_bei_unsicherheit}
+
+\begin{description}
+  \item[joint probability] $P(a, b) = P(a \mid b) P(b)$
+  \item[totale Wahrscheinlichkeit] $P(a) = \sum\limits_{b \in B} P(a \mid b)
+    P(b)$
+  \item[Satz von Bayes] $P(b \mid a) = \frac{P(a \mid b) P(b)}{P(a)}$
+\end{description}
 
 \section{Fortlaufende Zustandsschätzung (Sequential State Estimation)}
 \label{sec:fortlaufende_zustandsschatzung}
