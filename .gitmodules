@@ -1,3 +1,6 @@
 [submodule "artificial-friends"]
 	path = artificial-friends
 	url = git@github.com:samuelantonioli/artificial-friends.git
+[submodule "aima-python"]
+	path = aima-python
+	url = https://github.com/aimacode/aima-python.git
