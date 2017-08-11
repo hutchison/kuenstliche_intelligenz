@@ -14,3 +14,9 @@ zusammenfassung.pdf-live: zusammenfassung.latex
 
 zusammenfassung.pdf: zusammenfassung.latex
 	latexmk -pdf -xelatex -use-make $<
+
+klausur_ss17.pdf: klausur_ss17.latex
+	latexmk -pdf -xelatex $<
+
+klausur_ss17.pdf-live: klausur_ss17.latex
+	latexmk -pdf -pvc -xelatex $<
